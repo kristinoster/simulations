@@ -3,13 +3,13 @@ Kristin Öster
 
 ## Background
 
-In prediction, $r^2$ can be a misleading summary. In a recent post on
+In prediction, $`r^2`$ can be a misleading summary. In a recent post on
 the Psychometrics Substack
 (https://psychometrics.substack.com/p/r-and-r) the authors explain why
-$r^2$ can lead to misleading conclusions about the usefulness of
+$`r^2`$ can lead to misleading conclusions about the usefulness of
 personality testing in recruitment settings. A personality test that
-correlates $r = .19$ with job performance explains only
-$r^2 \approx 3.6\%$ of the variance, which sounds negligible. But
+correlates $`r = .19`$ with job performance explains only
+$`r^2 \approx 3.6\%`$ of the variance, which sounds negligible. But
 recruitment is about prediction, that is, ranking candidates. What we
 want to know is how much a recruitment tool improves our chances of a
 good hire, not how much variance it explains or how it causally relates
@@ -19,13 +19,13 @@ Now, I am not a psychometrician nor do I work with recruitment. But this
 post sparked my interest regarding how we can say something about the
 uncertainty of the measure. Predictive models apply to the group level:
 they describe what we can expect on average across many hires, not what
-will happen for any single person. With $r = .19$, applicants scoring +2
-SD on the test are expected to perform $0.19 \times 2 \approx 0.4$ SD
-higher than average. Used consistently, the test should therefore raise
-the success rate over time. But the individual outcomes remain highly
-uncertain, and structured recruitment with testing is costly. If an
-organization recruits only once every five years, the long-run gain may
-never materialize. So if not $r^2$, what measure could we use to
+will happen for any single person. With $`r = .19`$, applicants scoring
++2 SD on the test are expected to perform $`0.19 \times 2 \approx 0.4`$
+SD higher than average. Used consistently, the test should therefore
+raise the success rate over time. But the individual outcomes remain
+highly uncertain, and structured recruitment with testing is costly. If
+an organization recruits only once every five years, the long-run gain
+may never materialize. So if not $`r^2`$, what measure could we use to
 interpret the uncertainty of the measure and expected benefit?
 
 In clinical research, the number needed to treat (NNT) complements mean
@@ -35,14 +35,18 @@ same logic can be applied to recruitment: how many hires must be made
 with the test, rather than without it, to get one additional successful
 hire?
 
-$$
+``` math
 \begin{aligned}
-NNT &= \frac{1}{ARR} \\
+NNT &= \frac{1}{ARR} 
 \\
 ARR &= CER - EER
 \end{aligned}
-$$ NNT = number needed to treat, ARR = Absolute risk reduction, CER =
+```
+
+NNT = number needed to treat, ARR = Absolute risk reduction, CER =
 Control event rate, EER = Experiment event rate
+
+## Demonstration
 
 Suppose we recruit retail sales staff, where success means closing at
 least 64 sales per month (mean 60, SD 10; hypothetical figures). Assume
@@ -52,7 +56,7 @@ expected to close about 0.19 × 2 ≈ 0.38 SD, or roughly 4 sales, more per
 month than average. This is a group-level prediction. Many individuals
 in both groups will succeed or fail regardless.
 
-$$
+``` math
 \begin{aligned}
 Y(\text{monthly sales}) &= Normal(60,10)
 \\
@@ -61,7 +65,7 @@ Y(\text{monthly sales, standardized}) &= Normal(0,1)
 X(\text{Conscientiosness, standardised}) &= Normal(0,1) \\
 r_{x,y} &=0.19
 \end{aligned}
-$$
+```
 
 Code for setting up the data:
 
