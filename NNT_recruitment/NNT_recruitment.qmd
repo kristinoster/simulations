@@ -18,7 +18,6 @@ In clinical research, the number needed to treat (NNT) complements mean effect s
 $$
 \begin{aligned}
 NNT &= \frac{1}{ARR} \\
-\\
 ARR &= CER - EER
 \end{aligned}
 $$
