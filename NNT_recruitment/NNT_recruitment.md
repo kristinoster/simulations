@@ -24,9 +24,9 @@ will happen for any single person. With $`r = .19`$, applicants scoring
 SD higher than average. Used consistently, the test should therefore
 raise the success rate over time. But the individual outcomes remain
 highly uncertain, and structured recruitment with testing is costly. If
-an organization recruits only once every five years, the long-run gain
-may never materialize. So if not $`r^2`$, what measure could we use to
-interpret the uncertainty of the measure and expected benefit?
+an organization rarely recruits, the long-run gain may never
+materialize. So if not $`r^2`$, what measure could we use to interpret
+the uncertainty of the expected benefit?
 
 In clinical research, the number needed to treat (NNT) complements mean
 effect sizes by showing how many patients must be treated to gain one
@@ -52,7 +52,7 @@ Suppose we recruit retail sales staff, where success means closing at
 least 64 sales per month (mean 60, SD 10; hypothetical figures). Assume
 a conscientiousness test, standardized in the applicant pool, correlates
 r = .19 with monthly sales. Applicants scoring X ≥ 2 SD are then
-expected to close about 0.19 × 2 ≈ 0.38 SD, or roughly 4 sales, more per
+expected to close about 0.19 × 2 ≈ 0.4 SD, or roughly 4 sales more per
 month than average. This is a group-level prediction. Many individuals
 in both groups will succeed or fail regardless.
 
@@ -87,7 +87,7 @@ p_yhi <- 1 - p_ylo  # P(Y >= 0.4)
 
 </details>
 
-Calculate the sucess rates in the two groups, those scoring above
+Calculate the success rates in the two groups, those scoring above
 (X\>=2) and below (X\<2) our threshold.
 
 <details class="code-fold">

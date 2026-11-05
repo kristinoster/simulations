@@ -11,7 +11,7 @@ format:
 ## Background
 In prediction, $r^2$ can be a misleading summary. In a recent post on the Psychometrics Substack (https://psychometrics.substack.com/p/r-and-r) the authors explain why $r^2$ can lead to misleading conclusions about the usefulness of personality testing in recruitment settings. A personality test that correlates $r = .19$ with job performance explains only $r^2 \approx 3.6\%$ of the variance, which sounds negligible. But recruitment is about prediction, that is, ranking candidates. What we want to know is how much a recruitment tool improves our chances of a good hire, not how much variance it explains or how it causally relates to the outcome.
 
-Now, I am not a psychometrician nor do I work with recruitment. But this post sparked my interest regarding how we can say something about the uncertainty of the measure. Predictive models apply to the group level: they describe what we can expect on average across many hires, not what will happen for any single person. With $r = .19$, applicants scoring +2 SD on the test are expected to perform $0.19 \times 2 \approx 0.4$ SD higher than average. Used consistently, the test should therefore raise the success rate over time. But the individual outcomes remain highly uncertain, and structured recruitment with testing is costly. If an organization recruits only once every five years, the long-run gain may never materialize. So if not $r^2$, what measure could we use to interpret the uncertainty of the measure and expected benefit?
+Now, I am not a psychometrician nor do I work with recruitment. But this post sparked my interest regarding how we can say something about the uncertainty of the measure. Predictive models apply to the group level: they describe what we can expect on average across many hires, not what will happen for any single person. With $r = .19$, applicants scoring +2 SD on the test are expected to perform $0.19 \times 2 \approx 0.4$ SD higher than average. Used consistently, the test should therefore raise the success rate over time. But the individual outcomes remain highly uncertain, and structured recruitment with testing is costly. If an organization rarely recruits, the long-run gain may never materialize. So if not $r^2$, what measure could we use to interpret the uncertainty of the expected benefit?
 
 In clinical research, the number needed to treat (NNT) complements mean effect sizes by showing how many patients must be treated to gain one additional favorable outcome (or prevent one unfavorable outcome). The same logic can be applied to recruitment: how many hires must be made with the test, rather than without it, to get one additional successful hire?
 
@@ -28,7 +28,7 @@ $$
 NNT = number needed to treat, ARR = Absolute risk reduction, CER = Control event rate, EER = Experiment event rate
 
 ## Demonstration
-Suppose we recruit retail sales staff, where success means closing at least 64 sales per month (mean 60, SD 10; hypothetical figures). Assume a conscientiousness test, standardized in the applicant pool, correlates r = .19 with monthly sales. Applicants scoring X ≥ 2 SD are then expected to close about 0.19 × 2 ≈ 0.38 SD, or roughly 4 sales, more per month than average. This is a group-level prediction. Many individuals in both groups will succeed or fail regardless.
+Suppose we recruit retail sales staff, where success means closing at least 64 sales per month (mean 60, SD 10; hypothetical figures). Assume a conscientiousness test, standardized in the applicant pool, correlates r = .19 with monthly sales. Applicants scoring X ≥ 2 SD are then expected to close about 0.19 × 2 ≈ 0.4 SD, or roughly 4 sales more per month than average. This is a group-level prediction. Many individuals in both groups will succeed or fail regardless.
 
 $$
 \begin{aligned}
@@ -57,7 +57,7 @@ p_yhi <- 1 - p_ylo  # P(Y >= 0.4)
 
 ```
 
-Calculate the sucess rates in the two groups, those scoring above (X>=2) and below (X<2) our threshold.
+Calculate the success rates in the two groups, those scoring above (X>=2) and below (X<2) our threshold.
 
 ```{r}
 library(mvtnorm)
