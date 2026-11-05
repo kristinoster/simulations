@@ -1,0 +1,124 @@
+# Number needed to recruit
+Kristin Öster
+
+## Background
+
+In prediction, $r^2$ can be a misleading summary. In a recent post on
+the Psychometrics Substack (R and R²:
+https://psychometrics.substack.com/p/r-and-r) the authors explain why
+$r^2$ can lead to misleading conclusions about the usefulness of
+personality testing in recruitment settings. A personality test that
+correlates $r = .19$ with job performance explains only
+$r^2 \approx 3.6\%$ of the variance, which sounds negligible. But
+recruitment is about prediction, that is, ranking candidates. What we
+want to know is how much a recruitment tool improves our chances of a
+good hire, not how much variance it explains or how it causally relates
+to the outcome.
+
+Now, I am not a psychometrician nor do I work with recruitment. But this
+post sparked my interest regarding how we can say something about the
+uncertainty of the measure. Predictive models apply to the group level:
+they describe what we can expect on average across many hires, not what
+will happen for any single person. With $r = .19$, applicants scoring +2
+SD on the test are expected to perform $0.19 \times 2 \approx 0.4$ SD
+higher than average. Used consistently, the test should therefore raise
+the success rate over time. But the individual outcomes remain highly
+uncertain, and structured recruitment with testing is costly. If an
+organization recruits only once every five years, the long-run gain may
+never materialize. So if not $r^2$, what measure could we use to
+interpret the uncertainty of the measure and expected benefit?
+
+In clinical research, the number needed to treat (NNT) complements mean
+effect sizes by showing how many patients must be treated to gain one
+additional favorable outcome (or prevent one unfavorable outcome). The
+same logic can be applied to recruitment: how many hires must be made
+with the test, rather than without it, to get one additional successful
+hire?
+
+$$
+\begin{aligned}
+NNT &= \frac{1}{ARR} \\
+\\
+ARR &= CER - EER
+\end{aligned}
+$$ NNT = number needed to treat, ARR = Absolute risk reduction, CER =
+Control event rate, EER = Experiment event rate
+
+Suppose we recruit retail sales staff, where success means closing at
+least 64 sales per month (mean 60, SD 10; hypothetical figures). Assume
+a conscientiousness test, standardized in the applicant pool, correlates
+r = .19 with monthly sales. Applicants scoring X ≥ 2 SD are then
+expected to close about 0.19 × 2 ≈ 0.38 SD, or roughly 4 sales, more per
+month than average. This is a group-level prediction. Many individuals
+in both groups will succeed or fail regardless.
+
+$$
+\begin{aligned}
+Y(\text{monthly sales}) &= Normal(60,10)
+\\
+Y(\text{monthly sales, standardized}) &= Normal(0,1)
+\\
+X(\text{Conscientiosness, standardised}) &= Normal(0,1) \\
+r_{x,y} &=0.19
+\end{aligned}
+$$
+
+Code for setting up the data:
+
+<details class="code-fold">
+<summary>Code</summary>
+
+``` r
+library(mvtnorm)
+r  <- 0.19
+S  <- matrix(c(1, r, r, 1), 2)
+
+x_cut <- 2
+y_cut <- 0.4
+p_xlo <- pnorm(2)   # P(x <  2)
+p_xhi <- 1-p_xlo   # P(x >= 2)
+p_ylo <- pnorm(0.4) # P(Y <  0.4)
+p_yhi <- 1 - p_ylo  # P(Y >= 0.4)
+```
+
+</details>
+
+Calculate the sucess rates in the two groups, those scoring above
+(X\>=2) and below (X\<2) our threshold.
+
+<details class="code-fold">
+<summary>Code</summary>
+
+``` r
+library(mvtnorm)
+r  <- 0.19
+S  <- matrix(c(1, r, r, 1), 2)
+
+#joint probability x>=2
+p_yhi_and_xhi <- pmvnorm(lower = c(x_cut, y_cut), upper = c(Inf, Inf), sigma = S)[1]
+
+#joint probability x<2
+p_yhi_and_xlo <- p_yhi - p_yhi_and_xhi
+
+#CER
+p_yhi_given_xhi <- p_yhi_and_xhi / p_xhi #among those with a high (+2sd) x score, how many also have Y \ge 0.4?
+
+#EER
+p_yhi_given_xlo  <- p_yhi_and_xlo / (p_xlo) #Among those with x < 2, how many has a Y \ge 0.4?
+
+ARR  <- p_yhi_given_xhi - p_yhi_given_xlo  #Absolute success increase: Not a risk reduction, but success increase
+nnt <- 1 / ARR
+c(CER = p_yhi_given_xhi, EER = p_yhi_given_xlo, ARR = ARR, NNT = nnt)
+```
+
+</details>
+
+          CER       EER       ARR       NNT 
+    0.5206059 0.3404804 0.1801256 5.5516829 
+
+In terms of success rates, about 52% of hires with X ≥ 2 reach 64 sales
+(CER), compared with about 34% of the rest (EER). The difference of 18
+percentage (ARR, or in this case, absolute sucess increase) points gives
+a number needed to hire of about 5.6: we must hire about six people from
+the X ≥ 2 group, rather than from the rest, to get one additional person
+who reaches the target.

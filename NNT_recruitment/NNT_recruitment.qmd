@@ -2,7 +2,7 @@
 title: "Number needed to recruit"
 author: Kristin Öster
 format: 
-  html:
+  gfm:
     code-fold: TRUE
     embed-resources: true
 ---
