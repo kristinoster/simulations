@@ -3,8 +3,9 @@ title: "Number needed to recruit"
 author: Kristin Öster
 format: 
   gfm:
+    variant: +tex_math_gfm
     code-fold: TRUE
-    embed-resources: true
+    #embed-resources: true
 ---
 
 ## Background
@@ -17,14 +18,16 @@ In clinical research, the number needed to treat (NNT) complements mean effect s
 
 $$
 \begin{aligned}
-NNT &= \frac{1}{ARR} \\
+NNT &= \frac{1}{ARR} 
+\\
 ARR &= CER - EER
 \end{aligned}
 $$
 
+
 NNT = number needed to treat, ARR = Absolute risk reduction, CER = Control event rate, EER = Experiment event rate
 
-
+## Demonstration
 Suppose we recruit retail sales staff, where success means closing at least 64 sales per month (mean 60, SD 10; hypothetical figures). Assume a conscientiousness test, standardized in the applicant pool, correlates r = .19 with monthly sales. Applicants scoring X ≥ 2 SD are then expected to close about 0.19 × 2 ≈ 0.38 SD, or roughly 4 sales, more per month than average. This is a group-level prediction. Many individuals in both groups will succeed or fail regardless.
 
 $$
