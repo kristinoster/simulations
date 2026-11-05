@@ -4,8 +4,8 @@ Kristin Öster
 ## Background
 
 In prediction, $r^2$ can be a misleading summary. In a recent post on
-the Psychometrics Substack (R and R²:
-https://psychometrics.substack.com/p/r-and-r) the authors explain why
+the Psychometrics Substack
+(https://psychometrics.substack.com/p/r-and-r) the authors explain why
 $r^2$ can lead to misleading conclusions about the usefulness of
 personality testing in recruitment settings. A personality test that
 correlates $r = .19$ with job performance explains only
