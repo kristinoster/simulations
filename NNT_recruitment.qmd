@@ -4,6 +4,7 @@ author: Kristin Öster
 format: 
   html:
     code-fold: TRUE
+    embed-resources: true
 ---
 
 ## Background
