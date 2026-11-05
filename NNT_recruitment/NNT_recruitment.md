@@ -112,17 +112,18 @@ p_yhi_given_xlo  <- p_yhi_and_xlo / (p_xlo) #Among those with x < 2, how many ha
 
 ARR  <- p_yhi_given_xhi - p_yhi_given_xlo  #Absolute success increase: Not a risk reduction, but success increase
 nnt <- 1 / ARR
-c(CER = p_yhi_given_xhi, EER = p_yhi_given_xlo, ARR = ARR, NNT = nnt)
+c(CER = p_yhi_given_xlo, EER = p_yhi_given_xhi , ARR = ARR, NNT = nnt)
 ```
 
 </details>
 
           CER       EER       ARR       NNT 
-    0.5206059 0.3404804 0.1801256 5.5516829 
+    0.3404804 0.5206059 0.1801256 5.5516829 
 
-In terms of success rates, about 52% of hires with X ≥ 2 reach 64 sales
-(CER), compared with about 34% of the rest (EER). The difference of 18
-percentage (ARR, or in this case, absolute sucess increase) points gives
-a number needed to hire of about 5.6: we must hire about six people from
-the X ≥ 2 group, rather than from the rest, to get one additional person
-who reaches the target.
+In terms of success rates, about 52% of hires with high
+conscientiousness scores (x ≥ 2) reach 64 sales (EER), compared with
+about 34% of the rest (CER). The difference of 18 percentage points
+(ARR, or in this case, absolute success increase) gives a number needed
+to hire of about 5.6. In other words, we must hire about six people from
+the high conscientiousness group, rather than from the rest, to get one
+additional person who reaches the sales target (+4 above the average).
