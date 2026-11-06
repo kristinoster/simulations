@@ -94,10 +94,6 @@ above ($`P(Y\ge0.4|X\ge2`$) and selecting at random ($`P(Y\ge0.4)`$)
 <summary>Code</summary>
 
 ``` r
-library(mvtnorm)
-r  <- 0.19
-S  <- matrix(c(1, r, r, 1), 2)
-
 #joint probability: (P(Y>=0.4 & X>=2) 
 p_yhi_and_xhi <- pmvnorm(lower = c(x_cut, y_cut), upper = c(Inf, Inf), sigma = S)[1]
 
@@ -126,3 +122,46 @@ gives a number needed to hire of about 5.6. In other words, we must hire
 about six people from the high conscientiousness group, rather than at
 random, to get one additional person who reaches the sales target (+4
 above the average).
+
+## Using a lower cut-off
+
+Selecting on those scoring +2SD on a tests, means selecting only the top
+2.3 % of candidates. Let’s assume you select the top 10 % to recruit
+among.
+
+<details class="code-fold">
+<summary>Code</summary>
+
+``` r
+x_cut <- qnorm(p = 0.1, lower.tail = F)
+y_cut <- x_cut*r
+p_xlo <- pnorm(x_cut)   
+p_xhi <- 1-p_xlo   
+p_ylo <- pnorm(y_cut) 
+p_yhi <- 1 - p_ylo  
+
+
+#joint probability: (P(Y>=0.4 & X>=2) 
+p_yhi_and_xhi <- pmvnorm(lower = c(x_cut, y_cut), upper = c(Inf, Inf), sigma = S)[1]
+
+#CER
+p_yhi_given_xhi <- p_yhi_and_xhi / p_xhi #among those with a high (+2sd) x score, how many also have Y \ge 0.4?
+
+#Base rate/EER: ($P(Y>=0.4)$)
+p_base <- p_yhi   #Among those with any X score (selecting at random) how many has a Y \ge 0.4?
+
+
+ARR  <- p_yhi_given_xhi - p_base  #Absolute success increase: Not a risk reduction, but success increase
+nnt <- 1 / ARR
+c(CER = p_base, EER = p_yhi_given_xhi , ARR = ARR, NNT = nnt)
+```
+
+</details>
+
+          CER       EER       ARR       NNT 
+    0.4038111 0.5363407 0.1325296 7.5454821 
+
+Choosing among the top 10 % scorers gives you a 54 % chance of hiring
+someone who reaches 2 more sales than average, which is 13 percentage
+points higher than the chances when recruiting at random. On average,
+this benefit will materialize over 8 recruitments (NNT).
