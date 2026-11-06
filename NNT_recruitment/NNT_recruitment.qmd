@@ -57,28 +57,26 @@ p_yhi <- 1 - p_ylo  # P(Y >= 0.4)
 
 ```
 
-Calculate the success rates in the two groups, those scoring above (X>=2) and below (X<2) our threshold.
+Calculate the success rates in the two groups, selecting those scoring above ($P(Y\ge0.4|X\ge2$) and selecting at random ($P(Y\ge0.4)$)
 
 ```{r}
 library(mvtnorm)
 r  <- 0.19
 S  <- matrix(c(1, r, r, 1), 2)
 
-#joint probability x>=2
+#joint probability: (P(Y>=0.4 & X>=2) 
 p_yhi_and_xhi <- pmvnorm(lower = c(x_cut, y_cut), upper = c(Inf, Inf), sigma = S)[1]
-
-#joint probability x<2
-p_yhi_and_xlo <- p_yhi - p_yhi_and_xhi
 
 #CER
 p_yhi_given_xhi <- p_yhi_and_xhi / p_xhi #among those with a high (+2sd) x score, how many also have Y \ge 0.4?
 
-#EER
-p_yhi_given_xlo  <- p_yhi_and_xlo / (p_xlo) #Among those with x < 2, how many has a Y \ge 0.4?
+#Base rate/EER: ($P(Y>=0.4)$)
+p_base <- p_yhi   #Among those with any X score (selecting at random) how many has a Y \ge 0.4?
 
-ARR  <- p_yhi_given_xhi - p_yhi_given_xlo  #Absolute success increase: Not a risk reduction, but success increase
+
+ARR  <- p_yhi_given_xhi - p_base  #Absolute success increase: Not a risk reduction, but success increase
 nnt <- 1 / ARR
-c(CER = p_yhi_given_xlo, EER = p_yhi_given_xhi , ARR = ARR, NNT = nnt)
+c(CER = p_base, EER = p_yhi_given_xhi , ARR = ARR, NNT = nnt)
 ```
 
-In terms of success rates, about 52% of hires with high conscientiousness scores (x ≥ 2) reach 64 sales (EER), compared with about 34% of the rest (CER). The difference of 18 percentage points (ARR, or in this case, absolute success increase) gives a number needed to hire of about 5.6. In other words, we must hire about six people from the high conscientiousness group, rather than from the rest, to get one additional person who reaches the sales target (+4 above the average).
+In terms of success rates, about 52% of hires with high conscientiousness scores (x ≥ 2) reach 64 sales (EER), compared with about 34% of those recruited at random (CER). The difference of 18 percentage points (ARR, or in this case, absolute success increase) gives a number needed to hire of about 5.6. In other words, we must hire about six people from the high conscientiousness group, rather than at random, to get one additional person who reaches the sales target (+4 above the average).
