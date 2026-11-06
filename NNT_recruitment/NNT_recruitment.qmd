@@ -106,4 +106,4 @@ nnt <- 1 / ARR
 c(CER = p_base, EER = p_yhi_given_xhi , ARR = ARR, NNT = nnt)
 ```
 
-Choosing among the top 10 % scorers gives you a `r round(100*p_yhi_given_xhi)` % chance of hiring someone who reaches `r round(10*y_cut)` more sales than average, which is `r round(100*ARR)` percentage points higher than the chances when recruiting at random. On average, this benefit will materialize over `r round(nnt)` recruitments (NNT).
+Choosing among the top 10 % scorers gives you a `r round(100*p_yhi_given_xhi)` % chance of hiring someone who reaches `r round(10*y_cut)` more sales than average, which is `r round(100*ARR)` percentage points higher than the chances when recruiting at random. On average, this benefit of recruiting one additional successful (+2 sales) candidate will materialize over `r round(nnt)` recruitments (NNT).

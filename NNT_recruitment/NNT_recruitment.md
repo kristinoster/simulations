@@ -164,4 +164,5 @@ c(CER = p_base, EER = p_yhi_given_xhi , ARR = ARR, NNT = nnt)
 Choosing among the top 10 % scorers gives you a 54 % chance of hiring
 someone who reaches 2 more sales than average, which is 13 percentage
 points higher than the chances when recruiting at random. On average,
-this benefit will materialize over 8 recruitments (NNT).
+this benefit of recruiting one additional successful (+2 sales)
+candidate will materialize over 8 recruitments (NNT).
